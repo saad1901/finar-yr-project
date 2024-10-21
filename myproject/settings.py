@@ -1,9 +1,8 @@
 import os
 from decouple import config
 
-# Define the base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_URLCONF = 'myproject.urls'  # Make sure this matches your project structure
+ROOT_URLCONF = 'myproject.urls'  
 
 SECRET_KEY = 'your-secret-key-here'
 
@@ -21,23 +20,19 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Use 'django.db.backends.postgresql' for PostgreSQL
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Path to your SQLite database file
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  
     }
 }
 
-
-# Media files stored on S3
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
-# Static files settings (local)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'myapp/static')]
 
 DEBUG = True
 
-# Add this line for local development
 ALLOWED_HOSTS = []
 
 
@@ -53,11 +48,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',  # This should be before AuthenticationMiddleware
+    'django.contrib.sessions.middleware.SessionMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',  # This should come after SessionMiddleware
-    'django.contrib.messages.middleware.MessageMiddleware',  # This should come after AuthenticationMiddleware
+    'django.contrib.auth.middleware.AuthenticationMiddleware', 
+    'django.contrib.messages.middleware.MessageMiddleware', 
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 

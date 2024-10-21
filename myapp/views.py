@@ -7,7 +7,7 @@ from .models import S3File
 
 @login_required
 def dashboard_view(request):
-    files = S3File.objects.filter(user=request.user)  # List user-specific files
+    files = S3File.objects.filter(user=request.user)
     return render(request, 'myapp/dashboard.html', {'files': files})
 
 @login_required
@@ -45,10 +45,10 @@ def logout_view(request):
 
 @login_required
 def delete_file_view(request, file_id):
-    s3_file = get_object_or_404(S3File, id=file_id, user=request.user)  # Ensure the file belongs to the user
+    s3_file = get_object_or_404(S3File, id=file_id, user=request.user) 
     if request.method == 'POST':
-        s3_file.file.delete()  # Delete file from storage
-        s3_file.delete()       # Delete file record from the database
+        s3_file.file.delete()  
+        s3_file.delete()      
         messages.success(request, "File deleted successfully.")
-        return redirect('dashboard')  # Redirect back to dashboard
-    return render(request, 'myapp/confirm_delete.html', {'file': s3_file})  # Render confirmation template
+        return redirect('dashboard')  
+    return render(request, 'myapp/confirm_delete.html', {'file': s3_file}) 
